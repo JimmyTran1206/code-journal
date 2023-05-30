@@ -20,7 +20,7 @@ function formSave(event) {
   formData[$form.elements.notes.name] = $form.elements.notes.value;
   formData.entryId = data.nextEntryId;
   data.nextEntryId++;
-  data.entries.push(formData);
+  data.entries.unshift(formData);
   $entryImage.setAttribute('src', 'images/placeholder-image-square.jpg');
   $form.reset();
 }
