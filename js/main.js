@@ -17,21 +17,65 @@ const $form = document.querySelector('.form');
 function formSave(event) {
   event.preventDefault();
   const formData = {};
-  formData[$form.elements.title.name] = $form.elements.title.value;
-  formData[$form.elements.photoURL.name] = $form.elements.photoURL.value;
-  formData[$form.elements.notes.name] = $form.elements.notes.value;
-  formData.entryId = data.nextEntryId;
-  data.nextEntryId++;
-  data.entries.unshift(formData);
-  $entryImage.setAttribute('src', 'images/placeholder-image-square.jpg');
-  $form.reset();
+  if (data.editing === null) {
+    // Perform standard functionality
+    formData[$form.elements.title.name] = $form.elements.title.value;
+    formData[$form.elements.photoURL.name] = $form.elements.photoURL.value;
+    formData[$form.elements.notes.name] = $form.elements.notes.value;
+    formData.entryId = data.nextEntryId;
+    data.nextEntryId++;
+    data.entries.unshift(formData);
 
-  // Updated functionality of issue#2: view the entires
-  const newEntry = renderEntry(formData);
-  const $ulEntryList = document.querySelector('ul.entry-list');
-  $ulEntryList.prepend(newEntry);
-  viewSwap('entries');
-  toggleNoEntries('off');
+    // Reset the form
+    $entryImage.setAttribute('src', 'images/placeholder-image-square.jpg');
+    $form.reset();
+
+    // Updated functionality of issue#2: view the entires
+    const newEntry = renderEntry(formData);
+    const $ulEntryList = document.querySelector('ul.entry-list');
+    $ulEntryList.prepend(newEntry);
+    viewSwap('entries');
+    toggleNoEntries('off');
+  } else {
+    // Updated functionality of issue#3: edit the entry
+    // assign the entry id value from data.editing to formData
+    formData.entryId = data.editing.entryId;
+
+    // record the new value
+    formData[$form.elements.title.name] = $form.elements.title.value;
+    formData[$form.elements.photoURL.name] = $form.elements.photoURL.value;
+    formData[$form.elements.notes.name] = $form.elements.notes.value;
+
+    // replace the original element in the array with the new one
+    let editEntryIndex = 0;
+    for (let indx = 0; indx < data.entries.length; indx++) {
+      if (data.entries[indx].entryId === formData.entryId) {
+        editEntryIndex = indx;
+      }
+    }
+    data.entries.splice(editEntryIndex, 1, formData);
+
+    // render new dom tree and replace the node
+    const $editedEntry = renderEntry(formData);
+    const queryString = 'li[data-entry-id=' + '"' + formData.entryId + '"';
+    const $originalEntry = document.querySelector(queryString);
+    $originalEntry.replaceWith($editedEntry);
+
+    viewSwap('entries');
+    toggleNoEntries('off');
+
+    // update the title
+    const $h2FormTitle = document.querySelector('h2.form-title');
+    $h2FormTitle.innerText = 'New Entry';
+
+    // reset data.editing
+    data.editing = null;
+
+    // reset the form
+    $entryImage.setAttribute('src', 'images/placeholder-image-square.jpg');
+    $form.reset();
+  }
+
 }
 $form.addEventListener('submit', formSave);
 
@@ -59,10 +103,19 @@ function renderEntry(entry) {
   $divColumnHalf2.className = 'column-half';
   $divRow.append($divColumnHalf2);
 
+  // Issue#3 add the fa-pencil
+  const $divRow2 = document.createElement('div');
+  $divRow2.className = 'row';
+  $divColumnHalf2.append($divRow2);
+
   const $h3EntryTitle = document.createElement('h3');
   $h3EntryTitle.className = 'entry-title';
   $h3EntryTitle.innerText = entry.title;
-  $divColumnHalf2.append($h3EntryTitle);
+  $divRow2.append($h3EntryTitle);
+
+  const $iEditIcon = document.createElement('i');
+  $iEditIcon.className = 'fa fa-pencil edit-icon';
+  $divRow2.append($iEditIcon);
 
   const $pEntryNotes = document.createElement('p');
   $pEntryNotes.className = 'entry-notes';
@@ -121,3 +174,43 @@ const $newLink = document.querySelector('a.button-new');
 $newLink.addEventListener('click', () => {
   viewSwap('entry-form');
 });
+
+// Issue #3: edit an entry
+function editEntriesHandler(event) {
+  if (event.target.tagName !== 'I') {
+    return;
+  }
+  viewSwap('entry-form');
+  // find the edit entry
+  const $currentEntry = event.target.closest('li');
+  let currentId = $currentEntry.getAttribute('data-entry-id');
+  currentId = parseInt(currentId);
+  const currentEntryObject = {};
+  for (const entry of data.entries) {
+    if (entry.entryId === currentId) {
+      const { entryId, notes, photoURL, title } = entry;
+      currentEntryObject.entryId = entryId;
+      currentEntryObject.notes = notes;
+      currentEntryObject.photoURL = photoURL;
+      currentEntryObject.title = title;
+    }
+  }
+  // assign the edit entry to the data.editing
+  data.editing = currentEntryObject;
+
+  // pre-populate the form
+  const $form = document.querySelector('.form');
+  $form.elements.title.value = currentEntryObject.title;
+  $form.elements.photoURL.value = currentEntryObject.photoURL;
+  $form.elements.notes.value = currentEntryObject.notes;
+  // update image since assignment operator does not count as an 'input' event
+  const $entryImage = document.querySelector('.entry-image');
+  $entryImage.setAttribute('src', currentEntryObject.photoURL);
+
+  // update the title of the entry-form
+  const $h2FormTitle = document.querySelector('h2.form-title');
+  $h2FormTitle.innerText = 'Edit Entry';
+
+}
+
+$ulEntryList.addEventListener('click', editEntriesHandler);
