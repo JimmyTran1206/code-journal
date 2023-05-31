@@ -18,14 +18,6 @@ h1.journal-header {
   display: inline-block;
 }
 
-h1.entries {
-  color: white;
-  font-weight: 400;
-  font-size: 0.8rem;
-  display: inline-block;
-  margin-left: 2rem;
-}
-
 h2.page-title {
   font-size: 1.5rem;
 }
@@ -102,6 +94,14 @@ button.submit:hover {
 }
 
 /* ISSUE#2 */
+span.entries {
+  color: white;
+  font-weight: 400;
+  font-size: 0.8rem;
+  display: inline-block;
+  margin-left: 2rem;
+}
+
 li.entry {
   list-style-type: none;
   margin-bottom: 2rem;

@@ -73,7 +73,7 @@ function renderEntry(entry) {
 }
 
 const $ulEntryList = document.querySelector('ul.entry-list');
-function DOMContentLoadedHandler(event) {
+function domContentLoadedHandler(event) {
   if (data.entries.length === 0) {
     toggleNoEntries('on');
   } else {
@@ -85,7 +85,7 @@ function DOMContentLoadedHandler(event) {
   }
   viewSwap(data.view);
 }
-document.addEventListener('DOMContentLoaded', DOMContentLoadedHandler);
+document.addEventListener('DOMContentLoaded', domContentLoadedHandler);
 
 function toggleNoEntries(state) {
   const $pNoEntry = document.querySelector('p.no-entry');
