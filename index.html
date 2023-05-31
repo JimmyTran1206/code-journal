@@ -84,6 +84,7 @@
           </div>
         </div>
 
+        <!-- Button save  -->
         <div class="row">
           <div class="button-submit-div">
             <button class="submit" type="submit">SAVE</button>
@@ -92,10 +93,38 @@
       </form>
     </div>
 
-    <div data-view="entries" class="hidden">
-      <ul class="entry-list">
-        <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Alias minus reiciendis blanditiis repudiandae amet totam consequatur, iste, eveniet, illo praesentium commodi ut voluptatibus ducimus dicta vel quis illum. Non, reiciendis.</li>
-        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint unde ducimus asperiores, in suscipit beatae quasi similique vero ipsum voluptatibus praesentium, aliquid doloremque delectus laboriosam error iusto commodi accusantium amet.</li>
+    <div data-view="entries" class="hiddena">
+
+      <!-- Header of entries -->
+      <div class="row">
+        <div class="row-half-left">
+          <h2 class="page-title">Entries</h2>
+        </div>
+        <div class="row-half-right">
+          <button class="button-new">NEW</button>
+        </div>
+      </div>
+      <!-- no entries announcement -->
+      <div class="row">
+        <div class="column-full">
+          <p class="no-entry">No entries have been recorded</p>
+        </div>
+      </div>
+
+      <!-- Entries content -->
+      <ul class="entry-list" >
+        <li class="entry">
+          <div class="row">
+            <div class="column-half">
+              <img class="view-entry-image" src="images/placeholder-image-square.jpg" alt="">
+            </div>
+            <div class="column-half">
+              <h3 class="entry-title">Title</h3>
+              <p class="entry-notes">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor velit labore quaerat, distinctio quasi soluta amet sint maiores perferendis ducimus quo, aliquid vero autem nostrum ipsam minima totam, explicabo sed?</p>
+            </div>
+          </div>
+        </li>
+
       </ul>
 
     </div>

@@ -1,3 +1,4 @@
+/* ISSUE#1 */
 * {
   font-family: sans-serif;
 }
@@ -31,7 +32,11 @@ h2.page-title {
 
 img.entry-image {
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
+}
+
+img.view-entry-image {
+  width: 80%;
 }
 
 .label-input-div {
@@ -92,14 +97,56 @@ button.submit {
   width: 100%;
 }
 
+/* ISSUE#2 */
+li.entry {
+  list-style-type: none;
+  margin-bottom: 2rem;
+}
+
+ul.entry-list {
+  padding: 0;
+  margin: 0;
+}
+
+button.button-new {
+  font-size: 1.2rem;
+  padding: 0.3rem 0.6rem;
+  background-color: #4a2373;
+  color: white;
+  border: 1.5px solid #4a2373;
+  border-radius: 5px;
+  margin: 1.1rem 0;
+}
+
+div.row-half-left {
+  margin-right: auto;
+}
+
+p.entry-notes {
+  text-align: justify;
+}
+
+p.no-entry {
+  width: 100%;
+  text-align: center;
+  border: 1px solid black;
+  font-size: 1.2rem;
+}
+
+/* ALL RESPONSIVE I CAN THINK */
 @media screen and (min-width: 768px) {
   .button-submit-div {
     padding: 0 1rem;
   }
 
-  img.entry-image {
+  img.view-entry-image {
     width: 100%;
     height: auto;
     object-fit: contain;
+  }
+
+  div.row-half-left,
+  div.row-half-right {
+    padding: 0 0.75rem;
   }
 }
