@@ -47,13 +47,11 @@ function formSave(event) {
     formData[$form.elements.notes.name] = $form.elements.notes.value;
 
     // replace the original element in the array with the new one
-    let editEntryIndex = 0;
     for (let indx = 0; indx < data.entries.length; indx++) {
       if (data.entries[indx].entryId === formData.entryId) {
-        editEntryIndex = indx;
+        data.entries.splice(indx, 1, formData);
       }
     }
-    data.entries.splice(editEntryIndex, 1, formData);
 
     // render new dom tree and replace the node
     const $editedEntry = renderEntry(formData);
