@@ -22,13 +22,14 @@
       <div class="row">
         <div class="column-full">
           <h1 class="journal-header">Code Journal</h1>
-          <a href="#">
+          <a class="entries-link" href="#">
             <h1 class="entries">Entries</h1>
           </a>
         </div>
       </div>
     </div>
   </header>
+
   <main class="container">
     <div data-view="entry-form">
       <form action="#" class="form">
@@ -93,15 +94,15 @@
       </form>
     </div>
 
-    <div data-view="entries" class="hiddena">
 
+    <div data-view="entries" class="hidden">
       <!-- Header of entries -->
       <div class="row">
         <div class="row-half-left">
           <h2 class="page-title">Entries</h2>
         </div>
         <div class="row-half-right">
-          <button class="button-new">NEW</button>
+          <a class="button-new" href="#">NEW</a>
         </div>
       </div>
       <!-- no entries announcement -->
@@ -113,18 +114,7 @@
 
       <!-- Entries content -->
       <ul class="entry-list" >
-        <li class="entry">
-          <div class="row">
-            <div class="column-half">
-              <img class="view-entry-image" src="images/placeholder-image-square.jpg" alt="">
-            </div>
-            <div class="column-half">
-              <h3 class="entry-title">Title</h3>
-              <p class="entry-notes">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor velit labore quaerat, distinctio quasi soluta amet sint maiores perferendis ducimus quo, aliquid vero autem nostrum ipsam minima totam, explicabo sed?</p>
-            </div>
-          </div>
-        </li>
-
+        <!-- Entry contents parsed here -->
       </ul>
 
     </div>

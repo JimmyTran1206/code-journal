@@ -92,6 +92,10 @@ button.submit {
   margin: 1.5rem 0;
 }
 
+button.submit:hover {
+  cursor: pointer;
+}
+
 .button-submit-div {
   text-align: right;
   width: 100%;
@@ -108,14 +112,21 @@ ul.entry-list {
   margin: 0;
 }
 
-button.button-new {
+a.button-new {
   font-size: 1.2rem;
   padding: 0.3rem 0.6rem;
   background-color: #4a2373;
   color: white;
   border: 1.5px solid #4a2373;
   border-radius: 5px;
-  margin: 1.1rem 0;
+  text-decoration: none;
+}
+
+/* Centering the link, serriously is there no other way? */
+.row-half-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 div.row-half-left {
@@ -129,7 +140,6 @@ p.entry-notes {
 p.no-entry {
   width: 100%;
   text-align: center;
-  border: 1px solid black;
   font-size: 1.2rem;
 }
 

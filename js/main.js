@@ -25,6 +25,13 @@ function formSave(event) {
   data.entries.unshift(formData);
   $entryImage.setAttribute('src', 'images/placeholder-image-square.jpg');
   $form.reset();
+
+  // Updated functionality of issue#2: view the entires
+  const newEntry = renderEntry(formData);
+  const $ulEntryList = document.querySelector('ul.entry-list');
+  $ulEntryList.prepend(newEntry);
+  viewSwap('entries');
+  toggleNoEntries('off');
 }
 $form.addEventListener('submit', formSave);
 
@@ -67,13 +74,50 @@ function renderEntry(entry) {
 
 const $ulEntryList = document.querySelector('ul.entry-list');
 function DOMContentLoadedHandler(event) {
-  for (let i = 0; i < data.entries.length; i++) {
-    const $liEntry = renderEntry(data.entries[i]);
-    $ulEntryList.append($liEntry);
+  if (data.entries.length === 0) {
+    toggleNoEntries('on');
+  } else {
+    toggleNoEntries('off');
+    for (let i = 0; i < data.entries.length; i++) {
+      const $liEntry = renderEntry(data.entries[i]);
+      $ulEntryList.append($liEntry);
+    }
   }
+  viewSwap(data.view);
 }
 document.addEventListener('DOMContentLoaded', DOMContentLoadedHandler);
 
-// function toggleNoEntries(pNoEntry) {
-//   pNoEntry.classList.toggle('hidden');
-// }
+function toggleNoEntries(state) {
+  const $pNoEntry = document.querySelector('p.no-entry');
+  if (state === 'on') {
+    $pNoEntry.classList.remove('hidden');
+  }
+  if (state === 'off') {
+    $pNoEntry.classList.add('hidden');
+  }
+}
+
+function viewSwap(viewMode) {
+  data.view = viewMode;
+  const $entryFormView = document.querySelector('div[data-view="entry-form"]');
+  const $entriesView = document.querySelector('div[data-view="entries"]');
+  if (viewMode === 'entries') {
+    $entryFormView.classList.add('hidden');
+    $entriesView.classList.remove('hidden');
+  }
+  if (viewMode === 'entry-form') {
+    $entryFormView.classList.remove('hidden');
+    $entriesView.classList.add('hidden');
+  }
+}
+
+const $entriesLink = document.querySelector('a.entries-link');
+
+$entriesLink.addEventListener('click', () => {
+  viewSwap('entries');
+});
+
+const $newLink = document.querySelector('a.button-new');
+$newLink.addEventListener('click', () => {
+  viewSwap('entry-form');
+});
