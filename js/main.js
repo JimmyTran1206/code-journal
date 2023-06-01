@@ -29,7 +29,6 @@ function formSave(event) {
     // Reset the form
     $entryImage.setAttribute('src', 'images/placeholder-image-square.jpg');
     $form.reset();
-    const $deleteButton = document.querySelector('button.delete');
     $deleteButton.classList.add('hidden');
 
     // Updated functionality of issue#2: view the entires
@@ -76,7 +75,6 @@ function formSave(event) {
     $form.reset();
 
     // hide the delete button
-    const $deleteButton = document.querySelector('button.delete');
     $deleteButton.classList.add('hidden');
   }
 
@@ -179,7 +177,6 @@ $newLink.addEventListener('click', () => {
   viewSwap('entry-form');
 
   // hide the delete button
-  const $deleteButton = document.querySelector('button.delete');
   $deleteButton.classList.add('hidden');
 
   // reset the form
@@ -224,7 +221,6 @@ function editEntriesHandler(event) {
   $h2FormTitle.innerText = 'Edit Entry';
 
   // Issue#4: show the delete button
-  const $deleteButton = document.querySelector('button.delete');
   $deleteButton.classList.remove('hidden');
 
 }
@@ -232,18 +228,17 @@ $ulEntryList.addEventListener('click', editEntriesHandler);
 
 // Issue#4 the delete button functionality
 const $deleteButton = document.querySelector('button.delete');
+const $cancelButton = document.querySelector('button.button-cancel');
+const $confirmButton = document.querySelector('button.button-confirm');
 
 $deleteButton.addEventListener('click', deleteButtonHandler);
 
 function deleteButtonHandler(event) {
   event.preventDefault();
   toggleModal('on');
-  const $cancelButton = document.querySelector('button.button-cancel');
   $cancelButton.addEventListener('click', () => {
-    event.preventDefault();
     toggleModal('off');
   });
-  const $confirmButton = document.querySelector('button.button-confirm');
   $confirmButton.addEventListener('click', () => {
     const currentId = data.editing.entryId;
     deleteEntry(currentId);
