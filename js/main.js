@@ -231,20 +231,19 @@ const $deleteButton = document.querySelector('button.delete');
 const $cancelButton = document.querySelector('button.button-cancel');
 const $confirmButton = document.querySelector('button.button-confirm');
 
-$deleteButton.addEventListener('click', deleteButtonHandler);
-
-function deleteButtonHandler(event) {
+$deleteButton.addEventListener('click', event => {
   event.preventDefault();
   toggleModal('on');
-  $cancelButton.addEventListener('click', () => {
-    toggleModal('off');
-  });
-  $confirmButton.addEventListener('click', () => {
-    const currentId = data.editing.entryId;
-    deleteEntry(currentId);
-  });
+});
 
-}
+$cancelButton.addEventListener('click', () => {
+  toggleModal('off');
+});
+
+$confirmButton.addEventListener('click', () => {
+  const currentId = data.editing.entryId;
+  deleteEntry(currentId);
+});
 
 function toggleModal(state) {
   const $articleOverlay = document.querySelector('article.overlay');
