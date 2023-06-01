@@ -85,11 +85,17 @@
           </div>
         </div>
 
-        <!-- Button save  -->
+
         <div class="row">
+          <!-- Button delete -->
+          <div class="button-delete-div">
+            <button class="delete hidden">Delete Entry</button>
+          </div>
+          <!-- Button save  -->
           <div class="button-submit-div">
             <button class="submit" type="submit">SAVE</button>
           </div>
+
         </div>
       </form>
     </div>
@@ -119,6 +125,25 @@
 
     </div>
   </main>
+
+
+  <!-- Overlay for Issue#4 -->
+  <article class="overlay hidden">
+    <div class="overlay-contain">
+      <div class="article-row">
+        <p class="confirmation-text">Are you sure you want to delete this entry?</p>
+      </div>
+      <div class="article-row">
+        <div class="button-cancel-div">
+          <button class="button-cancel">CANCEL</button>
+        </div>
+        <div class="button-confim-div">
+          <button class="button-confirm">CONFIRM</button>
+        </div>
+      </div>
+    </div>
+  </article>
+
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>

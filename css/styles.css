@@ -90,7 +90,26 @@ button.submit:hover {
 
 .button-submit-div {
   text-align: right;
-  width: 100%;
+  width: 25%;
+}
+
+.button-delete-div {
+  text-align: left;
+  width: 75%;
+}
+
+button.delete {
+  font-size: 1rem;
+  background-color: #edebed;
+  color: #eb4f4d;
+  border: none;
+  margin: 2rem 0;
+  padding: 0;
+  text-decoration: underline;
+}
+
+button.delete:hover {
+  cursor: pointer;
 }
 
 /* ISSUE#2 */
@@ -163,10 +182,88 @@ i.edit-icon:hover {
   cursor: pointer;
 }
 
+/* ISSUE#4 */
+article.overlay {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.247);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div.overlay-contain {
+  width: 20%;
+  height: 20%;
+  min-width: 400px;
+  max-width: 500px;
+  min-height: 200px;
+  max-height: 250px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+div.article-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+p.confirmation-text {
+  font-size: 1.2rem;
+}
+
+.button-cancel-div {
+  margin-right: auto;
+  margin-left: 5%;
+}
+
+.button-confim-div {
+  margin-right: 5%;
+}
+
+button.button-cancel,
+button.button-confirm {
+  font-size: 1.5rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 5px;
+  margin: 1.5rem 0;
+}
+
+button.button-cancel {
+  background-color: #cecece;
+  color: black;
+  border: 1.5px solid #cecece;
+}
+
+button.button-confirm {
+  background-color: #eb4f4d;
+  color: white;
+  border: 1.5px solid #eb4f4d;
+}
+
+button.button-cancel:hover,
+button.button-confirm:hover {
+  cursor: pointer;
+}
+
 /* ALL RESPONSIVE I CAN THINK */
 @media screen and (min-width: 768px) {
   .button-submit-div {
     padding: 0 1rem;
+  }
+
+  .button-delete-div {
+    padding: 0 0.75rem;
   }
 
   img.view-entry-image {

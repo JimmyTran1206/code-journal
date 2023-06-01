@@ -29,6 +29,8 @@ function formSave(event) {
     // Reset the form
     $entryImage.setAttribute('src', 'images/placeholder-image-square.jpg');
     $form.reset();
+    const $deleteButton = document.querySelector('button.delete');
+    $deleteButton.classList.add('hidden');
 
     // Updated functionality of issue#2: view the entires
     const newEntry = renderEntry(formData);
@@ -72,6 +74,10 @@ function formSave(event) {
     // reset the form
     $entryImage.setAttribute('src', 'images/placeholder-image-square.jpg');
     $form.reset();
+
+    // hide the delete button
+    const $deleteButton = document.querySelector('button.delete');
+    $deleteButton.classList.add('hidden');
   }
 
 }
@@ -171,6 +177,14 @@ $entriesLink.addEventListener('click', () => {
 const $newLink = document.querySelector('a.button-new');
 $newLink.addEventListener('click', () => {
   viewSwap('entry-form');
+
+  // hide the delete button
+  const $deleteButton = document.querySelector('button.delete');
+  $deleteButton.classList.add('hidden');
+
+  // reset the form
+  $entryImage.setAttribute('src', 'images/placeholder-image-square.jpg');
+  $form.reset();
 });
 
 // Issue #3: edit an entry
@@ -209,6 +223,65 @@ function editEntriesHandler(event) {
   const $h2FormTitle = document.querySelector('h2.form-title');
   $h2FormTitle.innerText = 'Edit Entry';
 
+  // Issue#4: show the delete button
+  const $deleteButton = document.querySelector('button.delete');
+  $deleteButton.classList.remove('hidden');
+
+}
+$ulEntryList.addEventListener('click', editEntriesHandler);
+
+// Issue#4 the delete button functionality
+const $deleteButton = document.querySelector('button.delete');
+
+$deleteButton.addEventListener('click', deleteButtonHandler);
+
+function deleteButtonHandler(event) {
+  event.preventDefault();
+  toggleModal('on');
+  const $cancelButton = document.querySelector('button.button-cancel');
+  $cancelButton.addEventListener('click', () => {
+    event.preventDefault();
+    toggleModal('off');
+  });
+  const $confirmButton = document.querySelector('button.button-confirm');
+  $confirmButton.addEventListener('click', () => {
+    const currentId = data.editing.entryId;
+    deleteEntry(currentId);
+  });
+
 }
 
-$ulEntryList.addEventListener('click', editEntriesHandler);
+function toggleModal(state) {
+  const $articleOverlay = document.querySelector('article.overlay');
+  if (state === 'on') {
+    $articleOverlay.classList.remove('hidden');
+  }
+  if (state === 'off') {
+    $articleOverlay.classList.add('hidden');
+  }
+}
+
+function deleteEntry(Id) {
+  // find and delete the object with the same id in data.entries
+  for (let indx = 0; indx < data.entries.length; indx++) {
+    if (data.entries[indx].entryId === Id) {
+      data.entries.splice(indx, 1);
+    }
+  }
+  // find and remove the li-element from the dom-tree
+  const queryString = 'li[data-entry-id=' + '"' + Id + '"';
+  const $currentLI = document.querySelector(queryString);
+  $currentLI.remove();
+
+  // toggle NoEntry text in case of no entry
+  if (data.entries.length === 0) {
+    toggleNoEntries('on');
+  }
+
+  // hide the modal
+  toggleModal('off');
+  // swap to entries-view
+  viewSwap('entries');
+  // clear data-editing
+  data.editing = null;
+}
